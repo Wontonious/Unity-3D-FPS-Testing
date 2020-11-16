@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class cameraLookCC : MonoBehaviour
 {
-    //Hi github
+
     public Transform playerBody;
     private float xRotation;
-    private float yRotation;
     public float sensitivity = 100f;
     private float sensMultiplier = 2.5f;
     private float verticalSens = 1f;
@@ -35,10 +34,11 @@ public class cameraLookCC : MonoBehaviour
         float mouseX = Input.GetAxis("Mouse X") * sensitivity * sensMultiplier * horizontalSens * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * sensitivity * sensMultiplier * verticalSens * Time.deltaTime;
 
+
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-        yRotation += mouseX;
 
-        transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
+        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        playerBody.Rotate(Vector3.up * mouseX);
     }
 }

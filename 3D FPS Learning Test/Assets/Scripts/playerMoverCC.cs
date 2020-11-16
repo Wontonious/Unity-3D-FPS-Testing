@@ -7,8 +7,7 @@ public class playerMoverCC : MonoBehaviour
 {
     public CharacterController controller;
 
-    public Transform playerCamera;
-    public Transform player;
+    //public Transform player;
 
 
     public float speed = 12f;
@@ -22,7 +21,7 @@ public class playerMoverCC : MonoBehaviour
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
 
-    bool isGrounded;
+    public bool isGrounded;
 
 
     // Update is called once per frame
@@ -33,17 +32,15 @@ public class playerMoverCC : MonoBehaviour
 
         if (isGrounded && velocity.y < 0)
         {
-            velocity.y = 0f;
+            velocity.y = -2f;
         }
 
 
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
+        float z = Input.GetAxis("Horizontal");
+        float x = Input.GetAxis("Vertical");
 
-        Vector3 move;
-        //Vector3 move = transform.right*z + -transform.forward * x;
-        move = transform.InverseTransformDirection(Vector3.forward*x + -Vector3.right*z);
-        //move = transform.InverseTransformDirection(Vector3.right*z);
+        Vector3 move = transform.right*z + transform.forward * x;
+
 
 
         controller.Move(move * speed * Time.deltaTime);
@@ -55,7 +52,8 @@ public class playerMoverCC : MonoBehaviour
         }
 
         //gravity code
-        velocity.y += gravity * Time.deltaTime;
+        velocity.y += gravity * 1.09f * Time.deltaTime;
+
 
         //player jump move code
         if (Input.GetButtonDown("Jump") && isGrounded)
@@ -66,19 +64,5 @@ public class playerMoverCC : MonoBehaviour
         {
             controller.Move(velocity * Time.deltaTime);
         }
-
-        //player move in facing direction
-
-
-        player.transform.localRotation = Quaternion.Euler(0f, x, 0f);
-
-       // private Vector3 TransformDirection(0f, z, 0f);
-
-        /*
-        if (Input.GetButtonDown(KeyCode.LeftControl)) //Shift -> sprint *doesn't work
-        {
-            controller.Move(velocity * Time.deltaTime * 20f);
-        }
-        */
     }
 }
