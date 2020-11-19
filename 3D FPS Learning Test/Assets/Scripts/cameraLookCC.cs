@@ -6,6 +6,7 @@ public class cameraLookCC : MonoBehaviour
 {
 
     public Transform playerBody;
+    public Transform playedHead;
     private float xRotation;
     public float sensitivity = 100f;
     private float sensMultiplier = 2.5f;
@@ -24,6 +25,7 @@ public class cameraLookCC : MonoBehaviour
     void Update()
     {
         transform.position = playerBody.transform.position;
+        transform.position = playedHead.transform.position;
 
         rotation();
     }

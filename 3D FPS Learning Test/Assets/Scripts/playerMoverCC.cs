@@ -12,7 +12,7 @@ public class playerMoverCC : MonoBehaviour
 
     public float speed = 12f;
     public float gravity = -9.81f;
-    public float jumpHeight = 3f;
+    public float jumpHeight = 0.0015f;
 
     Vector3 velocity;
 
@@ -41,6 +41,12 @@ public class playerMoverCC : MonoBehaviour
 
         Vector3 move = transform.right*z + transform.forward * x;
 
+        //gravity code
+        velocity.y += gravity * 0.075f * Time.deltaTime;
+        if (isGrounded)
+        {
+            velocity.y = 0f;
+        }
 
 
         controller.Move(move * speed * Time.deltaTime);
@@ -51,10 +57,12 @@ public class playerMoverCC : MonoBehaviour
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
-     
 
-        //gravity code
-        velocity.y += gravity * 1.09f * Time.deltaTime;
+
+        //Moves player on y-axis according to gravity and jump
+        controller.Move(velocity);
+
+
 
 
     }
